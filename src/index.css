@@ -1,5 +1,4 @@
-@tailwind base;
-@tailwind components;
+@import "tailwindcss"; 
 @tailwind utilities;
 
 html, body, #root, #root-anim-wrapper {
@@ -35,6 +34,7 @@ a {
 }
 a:hover {
   color: #535bf2;
+  opacity: 0.8;
 }
 
 body {
@@ -78,4 +78,27 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.bg-fade-overlay {
+  transition: opacity 1.5s ease;
+}
+
+/* Header animation based on is-loading class, matching original Gatsby */
+.is-loading #header .inner {
+  max-height: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  opacity: 0 !important;
+  transition: max-height 0.5s ease, padding 0.5s ease, opacity 0.5s cubic-bezier(0.77,0,0.175,1);
+  transition-delay: 1s;
+}
+
+#header .inner {
+  transition: max-height 0.5s ease, padding 0.5s ease, opacity 0.5s cubic-bezier(0.77,0,0.175,1);
+  transition-delay: 1s;
+  max-height: 40rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  opacity: 1;
 }

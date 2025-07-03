@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Header from './components/Header'
 import Main from './components/Main'
 import Footer from './components/Footer'
@@ -11,24 +11,27 @@ const Home: React.FC = () => {
   const [article, setArticle] = useState('')
   const [loading, setLoading] = useState(true)
   const wrapperRef = useRef<HTMLDivElement | null>(null)
-  const headerAnimatedRef = useRef(false)
-  const headerAnimationLocked = useRef(false)
-  const [headerShouldAnimate, setHeaderShouldAnimate] = useState(() => {
-    return sessionStorage.getItem('headerAnimated') !== 'true';
-  });
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 100)
     return () => clearTimeout(timer)
   }, [])
 
-  React.useEffect(() => {
-    if (headerShouldAnimate && !loading && !headerAnimationLocked.current) {
-      sessionStorage.setItem('headerAnimated', 'true');
-      headerAnimationLocked.current = true;
-      setTimeout(() => setHeaderShouldAnimate(false), 1600);
+  // Click-off-to-close modal logic (matches old project)
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        wrapperRef.current &&
+        event.target instanceof HTMLElement &&
+        event.target.id === 'wrapper' &&
+        isArticleVisible
+      ) {
+        handleCloseArticle()
+      }
     }
-  }, [headerShouldAnimate, loading]);
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [isArticleVisible])
 
   const handleOpenArticle = (articleName: string) => {
     setIsArticleVisible(true)
@@ -58,6 +61,8 @@ const Home: React.FC = () => {
     isArticleVisible ? 'is-article-visible' : '',
   ].join(' ')
 
+  console.log('Home render, loading:', loading)
+
   return (
     <div
       className={rootClass}
@@ -72,6 +77,12 @@ const Home: React.FC = () => {
           width: '100%',
         }}
       >
+        {/* Fade-in overlay for background */}
+        <div
+          className={`absolute inset-0 w-full h-full z-30 bg-[#000] bg-fade-overlay pointer-events-none${
+            loading ? ' opacity-100' : ' opacity-0'
+          }`}
+        ></div>
         <div
           className='absolute inset-0 w-full h-full z-10 pointer-events-none'
           style={{
@@ -81,23 +92,18 @@ const Home: React.FC = () => {
             width: '100%',
           }}
         ></div>
-        <div
-          className='absolute inset-0 w-full h-full z-20 bg-black bg-opacity-60 pointer-events-none'
-          style={{ height: '100vh', width: '100%' }}
-        ></div>
       </div>
       {/* Main content wrapper */}
       <div
         className='relative z-10 flex flex-col items-center min-h-screen w-full p-8 md:p-8 sm:p-4'
         id='wrapper'
         style={{ background: 'transparent' }}
+        ref={wrapperRef}
       >
         <Header
           onOpenArticle={handleOpenArticle}
           timeout={timeout}
-          isArticleVisible={isArticleVisible}
           loading={loading}
-          animateOnLoad={headerShouldAnimate}
         />
         <Main
           isArticleVisible={isArticleVisible}
@@ -105,7 +111,7 @@ const Home: React.FC = () => {
           articleTimeout={articleTimeout}
           article={article}
           onCloseArticle={handleCloseArticle}
-          setWrapperRef={(node) => (wrapperRef.current = node)}
+          setWrapperRef={() => {}}
         />
         <Footer timeout={timeout} />
       </div>

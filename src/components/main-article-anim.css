@@ -87,4 +87,13 @@
   pointer-events: auto;
 }
 
-/* Ensure Tailwind's hidden class still works for non-active articles */ 
+/* Ensure Tailwind's hidden class still works for non-active articles */
+
+/* Hide scrollbar for modal scroll container */
+.main-modal-scroll {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+.main-modal-scroll::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Webkit */
+} 
