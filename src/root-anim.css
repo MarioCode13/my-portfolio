@@ -1,0 +1,15 @@
+/* Reserved for root-level animation states if needed */ 
+
+#wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-evenly !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+  padding: 2rem 2rem !important;
+}
+@media (max-width: 640px) {
+  #wrapper {
+    padding: 1rem !important;
+  }
+} 

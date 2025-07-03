@@ -1,0 +1,90 @@
+/* Main Article Modal Styles */
+.main-article {
+  opacity: 0;
+  transform: translateY(0.25rem);
+  pointer-events: none;
+  background: #23272fb8;
+  color: #f3f4f6;
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  max-width: 40rem;
+  width: 100%;
+  margin: 2rem auto;
+  position: relative;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  display: none;
+  padding: 2.5rem;
+}
+
+.main-article-preactive {
+  display: block !important;
+}
+
+.main-article-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  display: block !important;
+}
+
+.main-article-timeout {
+  display: none !important;
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .main-article {
+    padding: 1.5rem 1rem;
+    max-width: 100vw;
+    margin: 1rem 0;
+  }
+}
+
+/* Close Button Styles */
+.main-article .close {
+  display: block;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  border-radius: 9999px;
+  background: transparent;
+  transition: background 0.2s;
+  z-index: 10;
+  padding: 0;
+  border: none;
+}
+.main-article .close:hover {
+  background: rgba(0,0,0,0.08);
+}
+.main-article .close:active {
+  background: rgba(0,0,0,0.15);
+}
+.main-article .close svg {
+  display: block;
+  margin: auto;
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke: #f3f4f6;
+}
+
+/* Backdrop Styles */
+.main-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  background: rgba(30, 34, 44, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: opacity 0.4s;
+  opacity: 0;
+  pointer-events: none;
+}
+.main-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Ensure Tailwind's hidden class still works for non-active articles */ 
