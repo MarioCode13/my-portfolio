@@ -41,7 +41,6 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
               >
                 {item.icon}
                 <span className='sr-only'>{item.label}</span>
-                {/* Tooltip */}
                 <span className='absolute left-16 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 bg-black text-white text-xs rounded px-2 py-1 ml-2 pointer-events-none transition-opacity duration-200 whitespace-nowrap'>
                   {item.label}
                 </span>
@@ -69,7 +68,6 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
             })}
           </div>
         </nav>
-        {/* Main Content shifted right on desktop */}
         <div className='flex-1 md:ml-16 mt-8'>
           <div className='text-center'>
             <h2 className='text-4xl font-bold mb-2 tracking-tight text-white drop-shadow-lg'>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { sanity } from './sanityClient'
 import SectionHeader from './components/SectionHeader'
+import SEO from './components/SEO'
 import Card from './components/Card'
 
 interface BlogPost {
@@ -11,6 +13,11 @@ interface BlogPost {
   mainImage?: { asset?: { url?: string } }
   excerpt?: string
   body?: any
+  categories?: Array<{
+    _id: string
+    title: string
+    description?: string
+  }>
 }
 
 const Blog: React.FC = () => {
@@ -27,7 +34,12 @@ const Blog: React.FC = () => {
       publishedAt,
       mainImage{ asset->{url} },
       excerpt,
-      body
+      body,
+      categories[]->{
+        _id,
+        title,
+        description
+      }
     }`
       )
       .then((data) => {
@@ -43,6 +55,11 @@ const Blog: React.FC = () => {
 
   return (
     <div>
+      <SEO
+        title="Blog"
+        description="Thoughts, tutorials, and updates. Read the latest posts below."
+        type="website"
+      />
       <SectionHeader
         title='Blog'
         subtitle='Thoughts, tutorials, and updates. Read the latest posts below.'
@@ -58,16 +75,22 @@ const Blog: React.FC = () => {
         ) : (
           <div className='grid gap-8 md:grid-cols-2'>
             {posts.map((post) => (
-              <Card
+              <Link
                 key={post._id}
-                image={post.mainImage?.asset?.url}
-                title={post.title}
-                excerpt={post.excerpt}
-                date={
-                  post.publishedAt &&
-                  new Date(post.publishedAt).toLocaleDateString()
-                }
-              />
+                to={`/blog/${post.slug?.current || post._id}`}
+                className="block transition-transform duration-200 hover:scale-[1.025]"
+              >
+                <Card
+                  image={post.mainImage?.asset?.url}
+                  title={post.title}
+                  excerpt={post.excerpt}
+                  date={
+                    post.publishedAt &&
+                    new Date(post.publishedAt).toLocaleDateString()
+                  }
+                  categories={post.categories}
+                />
+              </Link>
             ))}
           </div>
         )}

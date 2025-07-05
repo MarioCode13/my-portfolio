@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import Header from './components/Header'
 import Main from './components/Main'
 import Footer from './components/Footer'
+import SEO from './components/SEO'
 import './root-anim.css'
 
 const Home: React.FC = () => {
@@ -68,6 +69,11 @@ const Home: React.FC = () => {
       className={rootClass}
       id='root-anim-wrapper'
     >
+      <SEO
+        title="Mario's Portfolio"
+        description="Full-stack developer specializing in React, TypeScript, and modern web technologies. View my projects and blog posts."
+        type="website"
+      />
       <div
         className='fixed inset-0 w-full h-full z-0 bg-cover bg-center'
         id='bg-anim'

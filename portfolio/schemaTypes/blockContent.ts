@@ -63,5 +63,66 @@ export default defineType({
       type: 'image',
       options: {hotspot: true},
     }),
+    defineArrayMember({
+      title: 'Code Block',
+      name: 'code',
+      type: 'object',
+      fields: [
+        {
+          title: 'Code',
+          name: 'code',
+          type: 'text',
+          rows: 10,
+        },
+        {
+          title: 'Language',
+          name: 'language',
+          type: 'string',
+          options: {
+            list: [
+              {title: 'JavaScript', value: 'javascript'},
+              {title: 'TypeScript', value: 'typescript'},
+              {title: 'HTML', value: 'html'},
+              {title: 'CSS', value: 'css'},
+              {title: 'SCSS', value: 'scss'},
+              {title: 'Python', value: 'python'},
+              {title: 'Java', value: 'java'},
+              {title: 'C++', value: 'cpp'},
+              {title: 'C#', value: 'csharp'},
+              {title: 'PHP', value: 'php'},
+              {title: 'Ruby', value: 'ruby'},
+              {title: 'Go', value: 'go'},
+              {title: 'Rust', value: 'rust'},
+              {title: 'SQL', value: 'sql'},
+              {title: 'JSON', value: 'json'},
+              {title: 'YAML', value: 'yaml'},
+              {title: 'Markdown', value: 'markdown'},
+              {title: 'Bash', value: 'bash'},
+              {title: 'Shell', value: 'shell'},
+              {title: 'Plain Text', value: 'text'},
+            ],
+          },
+        },
+        {
+          title: 'Filename (optional)',
+          name: 'filename',
+          type: 'string',
+        },
+      ],
+      preview: {
+        select: {
+          title: 'language',
+          subtitle: 'filename',
+          code: 'code',
+        },
+        prepare(selection) {
+          const {title, subtitle, code} = selection
+          return {
+            title: title ? title.charAt(0).toUpperCase() + title.slice(1) : 'Code Block',
+            subtitle: subtitle || (code ? `${code.slice(0, 50)}...` : ''),
+          }
+        },
+      },
+    }),
   ],
 })

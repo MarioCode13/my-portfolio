@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { sanity } from './sanityClient'
 import SectionHeader from './components/SectionHeader'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import 'swiper/css'
+import SEO from './components/SEO'
+import ProjectImageGallery from './components/ProjectImageGallery'
+import { BsApple, BsGooglePlay } from 'react-icons/bs'
 
 interface Project {
   _id: string
   title: string
   description: string
+  projectType?: string
+  order?: number
   url?: string
+  appStoreUrl?: string
+  playStoreUrl?: string
   gallery?: string[]
   stack?: { title: string; logo?: string }[]
 }
@@ -20,18 +25,26 @@ const Work: React.FC = () => {
   useEffect(() => {
     sanity
       .fetch(
-        `*[_type == "project"]{
+        `*[_type == "project"] | order(order asc){
       _id,
       title,
       description,
+      projectType,
+      order,
       url,
+      appStoreUrl,
+      playStoreUrl,
       "gallery": gallery[].asset->url,
       stack[]->{ title, "logo": logo.asset->url }
     }`
       )
       .then((data) => {
         console.log('Sanity projects:', data)
-        setProjects(data)
+        // Sort projects by order only
+        const sortedProjects = data.sort((a: Project, b: Project) => {
+          return (a.order || 0) - (b.order || 0)
+        })
+        setProjects(sortedProjects)
         setLoading(false)
       })
       .catch((err) => {
@@ -42,6 +55,11 @@ const Work: React.FC = () => {
 
   return (
     <div>
+      <SEO
+        title='Work'
+        description='A collection of my projects and work. Explore my portfolio of web applications and development projects.'
+        type='website'
+      />
       <SectionHeader
         sideNav
         title='Projects'
@@ -62,21 +80,11 @@ const Work: React.FC = () => {
                 className='bg-white/10 rounded-lg shadow-lg overflow-hidden flex flex-col'
               >
                 {proj.gallery && proj.gallery.length > 0 && (
-                  <Swiper
-                    spaceBetween={8}
-                    slidesPerView={1}
-                    className='h-48 w-full mb-2'
-                  >
-                    {proj.gallery.map((img, i) => (
-                      <SwiperSlide key={i}>
-                        <img
-                          src={img}
-                          alt={proj.title}
-                          className='h-48 w-full object-cover'
-                        />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
+                  <ProjectImageGallery 
+                    images={proj.gallery} 
+                    projectType={proj.projectType} 
+                    title={proj.title} 
+                  />
                 )}
                 <div className='p-4 flex-1 flex flex-col'>
                   <h3 className='text-xl font-semibold mb-2 text-white'>
@@ -89,29 +97,61 @@ const Work: React.FC = () => {
                     {proj.stack?.map((tech) => (
                       <span
                         key={tech.title}
-                        className='flex items-center'
+                        className='flex items-center group relative cursor-pointer'
                       >
                         {tech.logo && (
                           <img
                             src={tech.logo}
                             alt={tech.title}
-                            title={tech.title}
                             className='w-7 h-7 max-w-[28px] max-h-[28px] object-contain hover:scale-110 transition-transform duration-150'
                             style={{ minWidth: 28, minHeight: 28 }}
                           />
                         )}
+                        {/* Tooltip */}
+                        <span className='absolute left-1/2 top-full -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-black text-white text-xs rounded px-2 py-1 mt-2 pointer-events-none transition-opacity duration-200 whitespace-nowrap z-10'>
+                          {tech.title}
+                        </span>
                       </span>
                     ))}
                   </div>
-                  {proj.url && (
-                    <button
-                      onClick={() =>
-                        window.open(proj.url, '_blank', 'noopener,noreferrer')
-                      }
-                      className='mt-2 px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 transition-colors'
-                    >
-                      View Project
-                    </button>
+                  
+                  {/* Action Buttons */}
+                  {proj.projectType === 'mobile' ? (
+                    <div className='grid grid-cols-2 gap-2 mt-2'>
+                      {proj.appStoreUrl && (
+                        <button
+                          onClick={() =>
+                            window.open(proj.appStoreUrl, '_blank', 'noopener,noreferrer')
+                          }
+                          className='flex items-center justify-center gap-2 px-3 py-2 bg-black text-white rounded shadow hover:bg-gray-800 transition-colors text-sm'
+                        >
+                          <BsApple className='w-4 h-4' />
+                          App Store
+                        </button>
+                      )}
+                      {proj.playStoreUrl && (
+                        <button
+                          onClick={() =>
+                            window.open(proj.playStoreUrl, '_blank', 'noopener,noreferrer')
+                          }
+                          className='flex items-center justify-center gap-2 px-3 py-2 bg-green-600 text-white rounded shadow hover:bg-green-700 transition-colors text-sm'
+                        >
+                          <BsGooglePlay className='w-4 h-4' />
+                          Play Store
+                        </button>
+                      )}
+                    </div>
+                  ) : (
+                    proj.url && (
+                      <button
+                        onClick={() =>
+                          window.open(proj.url, '_blank', 'noopener,noreferrer')
+                        }
+                        className='mt-2 px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 transition-colors'
+                      >
+                        View Project
+                      </button>
+                    )
                   )}
                 </div>
               </div>
