@@ -11,12 +11,10 @@ interface MainProps {
 }
 
 const Main: React.FC<MainProps> = ({
-  isArticleVisible,
   timeout,
   articleTimeout,
   article,
   onCloseArticle,
-  setWrapperRef,
 }) => {
   const close = (
     <button

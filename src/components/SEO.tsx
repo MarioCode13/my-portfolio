@@ -16,7 +16,6 @@ const SEO: React.FC<SEOProps> = ({
   title,
   description,
   image,
-  url,
   type = 'website',
   publishedAt,
   author,
@@ -65,7 +64,7 @@ const SEO: React.FC<SEOProps> = ({
     if (type === 'article') {
       if (publishedAt) updateMetaTag('article:published_time', publishedAt)
       if (author) updateMetaTag('article:author', author)
-      categories.forEach((category, index) => {
+      categories.forEach((category) => {
         updateMetaTag(`article:section`, category)
       })
     }
