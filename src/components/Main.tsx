@@ -63,14 +63,14 @@ const Main: React.FC<MainProps> = ({
       {/* Backdrop for frosted glass effect, closes modal on click */}
       {timeout && (
         <div
-          className="fixed inset-0 w-full h-full bg-black/40 backdrop-blur-sm transition-opacity duration-300 opacity-100 pointer-events-auto z-30"
+          className='fixed inset-0 w-full h-full bg-black/40 backdrop-blur-sm transition-opacity duration-300 opacity-100 pointer-events-auto z-30'
           onClick={onCloseArticle}
-          aria-hidden="true"
+          aria-hidden='true'
         >
           <div
-            className="relative pointer-events-auto w-auto max-w-2xl mx-auto main-modal-scroll"
+            className='relative pointer-events-auto w-auto max-w-2xl mx-auto main-modal-scroll'
             style={{ maxHeight: '90vh', overflowY: 'auto' }}
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
           >
             {/* Work Article */}
             <article
@@ -87,24 +87,24 @@ const Main: React.FC<MainProps> = ({
               </span>
               <p className='mb-2'>
                 Throughout my career, I've built a wide range of web and mobile
-                solutions — from responsive marketing sites to production-ready
-                apps with complex workflows, API integrations, and admin systems.
+                projects with complex flows, API integrations, and often custom
+                admin dashboard web-apps to manage them.
               </p>
               <p className='mb-2'>
-                I'm comfortable across the full stack and enjoy crafting
-                experiences that are both seamless for users and maintainable for
-                teams. Whether it's building scalable frontend architectures or
-                shaping backend systems, I aim to create solutions that last.
+                I'm comfortable across full stack with a front-end focus and
+                enjoy crafting experiences that are both seamless for users and
+                maintainable for teams.
               </p>
               <p className='mb-2'>
-                I take continuous learning seriously — staying current with
-                industry best practices and sharpening my skills through
-                experimentation, side projects, and collaborative work.
+                I take continuous learning seriously, staying current with
+                industry best practices, new technologies and sharpening my
+                skills through experimentation, side projects, and
+                collaboration.
               </p>
 
               <p>
-                You can find a more detailed overview of the projects I've worked
-                on{' '}
+                You can find a more detailed overview of the projects I've
+                worked on{' '}
                 <a
                   href='/work'
                   className='text-blue-500 underline'
@@ -129,28 +129,27 @@ const Main: React.FC<MainProps> = ({
                 />
               </span>
               <p className='mb-2'>
-                Hi, I'm Mario — a software developer with a background in both
-                creative and technical fields. My journey into tech was shaped by
-                a love of music and design, eventually evolving into a passion for
-                building digital products that are intuitive, functional, and
-                thoughtfully designed.
+                Hi, I'm Mario, a software developer with a background in
+                creative and technical fields. My journey into tech was shaped
+                by a love of music and design, eventually evolving into a
+                passion for building user-focused, intuitive, functional and
+                visually appealing projects.
               </p>
               <p className='mb-2'>
-                I have a BCom in Information Systems and Business Management from
-                the University of South Africa, and I've worked across various
-                roles from marketing to web development — experiences that gave me
-                a well-rounded perspective on how software fits into broader
-                business goals.
+                I have a BCom in Information Systems and Business Management
+                from the University of South Africa, and I've worked across
+                various roles from marketing to web development,giving me a
+                perspective on how software fits into broader business goals.
               </p>
               <p className='mb-2'>
-                Today, I focus on building robust, user-focused applications
-                using: React, React Native, TypeScript, GraphQL, Java (Spring
-                Boot), PostgreSQL
+                Today, I focus on building applications primarily using: React,
+                React Native, TypeScript, GraphQL, Java (Spring Boot),
+                PostgreSQL
               </p>
               <p className='mb-2'>
                 I'm driven by a desire to bring ideas to life and solve real
-                problems — whether it's through frontend experiences, backend
-                logic, or the architecture that connects it all.
+                problems, through frontend experiences, backend logic, and the
+                architecture that connects it all.
               </p>
               <p>
                 You can explore some of my work{' '}
