@@ -13,7 +13,6 @@ const ProjectImageGallery: React.FC<ProjectImageGalleryProps> = ({
   projectType = 'web',
   title,
 }) => {
-  // For mobile apps, use phone frame layout
   if (projectType === 'mobile') {
     return (
       <div className='relative bg-[#07001e81] p-3'>
@@ -44,7 +43,6 @@ const ProjectImageGallery: React.FC<ProjectImageGalleryProps> = ({
     )
   }
 
-  // For web apps, use landscape layout
   return (
     <div className='relative'>
       <Swiper

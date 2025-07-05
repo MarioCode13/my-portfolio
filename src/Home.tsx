@@ -18,7 +18,6 @@ const Home: React.FC = () => {
     return () => clearTimeout(timer)
   }, [])
 
-  // Click-off-to-close modal logic (matches old project)
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -50,11 +49,7 @@ const Home: React.FC = () => {
     }, 350)
   }
 
-  // Click outside logic (optional, can be enhanced for accessibility)
-  // React's useEffect can be used to add/remove event listeners if needed
-
-  // Compose root-level class for animation states
-  const rootClass = [
+    const rootClass = [
     'relative',
     'w-full',
     'min-h-screen',

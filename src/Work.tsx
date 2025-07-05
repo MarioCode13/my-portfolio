@@ -40,7 +40,6 @@ const Work: React.FC = () => {
       )
       .then((data) => {
         console.log('Sanity projects:', data)
-        // Sort projects by order only
         const sortedProjects = data.sort((a: Project, b: Project) => {
           return (a.order || 0) - (b.order || 0)
         })

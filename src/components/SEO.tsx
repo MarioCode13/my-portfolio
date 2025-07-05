@@ -27,10 +27,8 @@ const SEO: React.FC<SEOProps> = ({
   const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`
 
   useEffect(() => {
-    // Update document title
     document.title = fullTitle
 
-    // Update meta description
     const metaDescription = document.querySelector('meta[name="description"]')
     if (metaDescription) {
       metaDescription.setAttribute('content', description || '')
@@ -41,7 +39,6 @@ const SEO: React.FC<SEOProps> = ({
       document.head.appendChild(newMetaDescription)
     }
 
-    // Update Open Graph tags
     const updateMetaTag = (property: string, content: string) => {
       let metaTag = document.querySelector(`meta[property="${property}"]`)
       if (metaTag) {
@@ -60,13 +57,11 @@ const SEO: React.FC<SEOProps> = ({
     updateMetaTag('og:type', type)
     updateMetaTag('og:site_name', siteTitle)
 
-    // Update Twitter tags
     updateMetaTag('twitter:title', fullTitle)
     if (description) updateMetaTag('twitter:description', description)
     if (image) updateMetaTag('twitter:image', image)
     updateMetaTag('twitter:card', 'summary_large_image')
 
-    // Article specific meta tags
     if (type === 'article') {
       if (publishedAt) updateMetaTag('article:published_time', publishedAt)
       if (author) updateMetaTag('article:author', author)
@@ -75,7 +70,6 @@ const SEO: React.FC<SEOProps> = ({
       })
     }
 
-    // Add structured data for articles
     if (type === 'article') {
       const structuredData = {
         "@context": "https://schema.org",
@@ -96,27 +90,23 @@ const SEO: React.FC<SEOProps> = ({
         "keywords": [...categories, ...keywords].join(', ')
       }
 
-      // Remove existing structured data
       const existingScript = document.querySelector('script[type="application/ld+json"]')
       if (existingScript) {
         existingScript.remove()
       }
 
-      // Add new structured data
       const script = document.createElement('script')
       script.type = 'application/ld+json'
       script.textContent = JSON.stringify(structuredData)
       document.head.appendChild(script)
     }
 
-    // Cleanup function
     return () => {
-      // Reset title to default when component unmounts
       document.title = siteTitle
     }
   }, [title, description, image, type, publishedAt, author, categories, keywords, fullTitle, siteTitle])
 
-  return null // This component doesn't render anything
+  return null
 }
 
 export default SEO 

@@ -46,7 +46,6 @@ const Main: React.FC<MainProps> = ({
     </button>
   )
 
-  // Helper to get animation classes
   const getArticleClass = (id: string) => {
     let base = 'main-article'
     if (article === id && articleTimeout) {

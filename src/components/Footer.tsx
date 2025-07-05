@@ -15,7 +15,6 @@ const Footer: React.FC<FooterProps> = ({ timeout }) => (
       style={{ gap: '10px' }}
     >
       <a
-        // className='logo'
         href='https://github.com/MarioCode13'
         target='_blank'
         rel='noopener noreferrer'
@@ -26,7 +25,6 @@ const Footer: React.FC<FooterProps> = ({ timeout }) => (
         />
       </a>
       <a
-        // className='logo'
         href='https://www.linkedin.com/in/mario-liebenberg/'
         target='_blank'
         rel='noopener noreferrer'
