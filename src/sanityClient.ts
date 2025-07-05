@@ -1,8 +1,10 @@
 import { createClient } from '@sanity/client'
 
 export const sanity = createClient({
-    projectId: 'zcsc2ikh', // find this in sanity.json or manage.sanity.io
-    dataset: 'production',        // or your dataset name
-    apiVersion: '2023-01-01',     // use a fixed date
-    useCdn: true,                 // `false` if you want fresh data
+    projectId: import.meta.env.VITE_SANITY_PROJECT_ID || 'zcsc2ikh',
+    dataset: import.meta.env.VITE_SANITY_DATASET || 'production',
+    apiVersion: import.meta.env.VITE_SANITY_API_VERSION || '2023-01-01',
+    useCdn: import.meta.env.VITE_SANITY_USE_CDN !== 'false',
+    // Optional: Add token for private datasets or enhanced security
+    // token: import.meta.env.VITE_SANITY_TOKEN, // Only if you need private content
 })

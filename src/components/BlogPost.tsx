@@ -5,6 +5,7 @@ import { sanity } from '../sanityClient'
 import SectionHeader from './SectionHeader'
 import SEO from './SEO'
 import CategoryChip from './CategoryChip'
+import LoadingSpinner from './LoadingSpinner'
 import { BsArrowLeft } from 'react-icons/bs'
 
 interface BlogPost {
@@ -80,12 +81,14 @@ const BlogPost: React.FC = () => {
     return (
       <div>
         <SectionHeader
-          title='Blog'
-          subtitle='Loading...'
+          title=''
+          subtitle=''
           sideNav
         />
-        <div className='max-w-4xl mx-auto p-8'>
-          <div className='text-center text-gray-400 py-16'>Loading...</div>
+        <div className='max-w-6xl mx-auto p-8'>
+          <div className='flex justify-center items-center py-16'>
+            <LoadingSpinner size='lg' />
+          </div>
         </div>
       </div>
     )

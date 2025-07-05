@@ -3,6 +3,7 @@ import { sanity } from './sanityClient'
 import SectionHeader from './components/SectionHeader'
 import SEO from './components/SEO'
 import ProjectImageGallery from './components/ProjectImageGallery'
+import SkeletonProjectCard from './components/SkeletonProjectCard'
 import { BsApple, BsGooglePlay } from 'react-icons/bs'
 
 interface Project {
@@ -66,7 +67,11 @@ const Work: React.FC = () => {
       />
       <div className='max-w-5xl mx-auto p-8'>
         {loading ? (
-          <div className='text-center text-gray-400 py-16'>Loading...</div>
+          <div className='grid gap-8 md:grid-cols-2'>
+            {[...Array(6)].map((_, index) => (
+              <SkeletonProjectCard key={index} />
+            ))}
+          </div>
         ) : projects.length === 0 ? (
           <div className='text-center text-gray-400 py-16'>
             No projects found.
